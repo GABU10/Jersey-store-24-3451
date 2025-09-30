@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Jersey Store – Quality Jerseys & Fan Gear</title>
+
+    <!--
+      Redesign notes:
+      - Keeps all required elements from Exercises 1–5
+      - Improves layout, accessibility, and responsiveness
+      - Uses semantic structure (header, nav, main, section, article, aside, footer)
+      - Table includes caption and inline border
+      - Video uses width=500 and has descriptive paragraph
+    -->
+
+    <style>
+      :root {
+        --bg: #ffffff;
+        --fg: #1f2937;
+        --muted: #6b7280;
+        --primary: #0ea5e9;
+        --accent: #f59e0b;
+        --border: #d1d5db;
+        --surface: #f8fafc;
+        --shadow: 0 2px 12px rgba(0,0,0,0.06);
+      }
+
+      * { box-sizing: border-box; }
+      html, body { margin: 0; padding: 0; }
+      body {
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", sans-serif;
+        color: var(--fg);
+        background: var(--bg);
+        line-height: 1.6;
+      }
+
+      a { color: var(--primary); text-decoration: none; }
+      a:hover, a:focus { text-decoration: underline; }
+
+      img { max-width: 100%; height: auto; display: block; }
+
+      .container {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 0 1rem;
+      }
+
+      /* Accessibility helpers */
+      .skip-link {
+        position: absolute;
+        left: -999px;
+        top: 0;
+        background: #000;
+        color: #fff;
+        padding: 8px 12px;
+        z-index: 1000;
+      }
+      .skip-link:focus { left: 1rem; }
+
+      header.site-header {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        background: var(--bg);
+        box-shadow: var(--shadow);
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 0;
+      }
+      .brand .logo {
+        height: 48px;
+        width: 48px;
+      }
+      .brand h1 {
+        font-size: 1.5rem;
+        margin: 0;
+      }
+      .tagline {
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+
+      nav.primary-nav {
+        padding-bottom: 12px;
+      }
+      nav.primary-nav ul {
+        list-style: none;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px 18px;
+        padding: 0;
+        margin: 8px 0 0 0;
+      }
+      nav.primary-nav a {
+        padding: 6px 10px;
+        border-radius: 6px;
+      }
+      nav.primary-nav a:hover,
+      nav.primary-nav a:focus {
+        background: var(--surface);
+        text-decoration: none;
+      }
+
+      main {
+        padding: 2rem 0;
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: 1.2fr 1fr;
+        gap: 1.5rem;
+        align-items: center;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 1.25rem;
+      }
+      .hero h2 {
+        margin-top: 0;
+      }
+
+      section, article, aside {
+        margin-top: 2rem;
+      }
+
+      /* Features list */
+      #features ul {
+        padding-left: 1.2rem;
+      }
+      #features li {
+        margin: 0.25rem 0;
+      }
+
+      /* Product section */
+      .product-gallery {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 1rem;
+        margin-top: 1rem;
+      }
+
+      /* Table styling (border handled inline to satisfy "Bonus") */
+      .table-wrapper {
+        overflow-x: auto;
+        margin-top: 0.5rem;
+      }
+      table.product-table {
+        border-collapse: collapse;
+        width: 100%;
+        background: #fff;
+      }
+      table.product-table caption {
+        caption-side: top;
+        font-weight: bold;
+        padding: 8px 0;
+      }
+      table.product-table th,
+      table.product-table td {
+        border: 1px solid #666;
+        padding: 10px 12px;
+        text-align: left;
+      }
+      table.product-table th {
+        background: #f3f4f6;
+      }
+
+      /* Aside card */
+      aside.aside-card {
+        background: var(--surface);
+        border-left: 4px solid #cbd5e1;
+        padding: 1rem;
+        border-radius: 8px;
+      }
+
+      footer.site-footer {
+        margin-top: 2.5rem;
+        background: var(--surface);
+        border-top: 1px solid var(--border);
+        padding: 1.25rem 0;
+        text-align: center;
+      }
+
+      /* Responsive tweaks */
+      @media (max-width: 900px) {
+        .hero {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <a href="#main" class="skip-link">Skip to main content</a>
+
+    <!-- HEADER + NAV -->
+    <header class="site-header">
+      <div class="container">
+        <div class="brand" role="banner">
+          <img
+            src="https://cdn-icons-png.flaticon.com/512/616/616494.png"
+            alt="Jersey Store logo"
+            class="logo"
+            width="48"
+            height="48"
+          />
+          <div>
+            <h1>Jersey Store</h1>
+            <p class="tagline">Your one-stop shop for quality jerseys and fan gear</p>
+          </div>
+        </div>
+
+        <nav class="primary-nav" aria-label="Primary">
+          <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#products">Products</a></li>
+            <li><a href="#video">Video</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li>
+              <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer" aria-label="GitHub profile (opens in a new tab)">
+                GitHub
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <!-- MAIN -->
+    <main id="main" class="container">
+      <!-- HERO / HOME -->
+      <section id="home" class="hero" aria-labelledby="about-title">
+        <div>
+          <h2 id="about-title">About Our Website</h2>
+          <p>
+            Jersey Store is dedicated to providing fans with authentic football jerseys, custom
+            printing, and team kits. Explore our products, watch our store tour, and discover why
+            we’re trusted by fans and teams alike.
+          </p>
+        </div>
+        <figure>
+          <img
+            src="https://images.pexels.com/photos/14547930/pexels-photo-14547930.jpeg"
+            alt="Featured football jersey on a hanger"
+            width="500"
+            height="333"
+          />
+          <figcaption class="muted">Featured authentic jersey from our collection</figcaption>
+        </figure>
+      </section>
+
+      <!-- FEATURES -->
+      <section id="features" aria-labelledby="features-title">
+        <h2 id="features-title">Our Services</h2>
+        <ul>
+          <li>Official Football Jerseys</li>
+          <li>Custom Name & Number Printing</li>
+          <li>Bulk Orders for Teams</li>
+          <li>Worldwide Shipping</li>
+          <li>Fan Accessories & Merchandise</li>
+        </ul>
+      </section>
+
+      <!-- PRODUCTS -->
+      <article id="products" aria-labelledby="products-title">
+        <h2 id="products-title">Product Showcase</h2>
+
+        <!-- Table (with inline border for "Bonus") -->
+        <div class="table-wrapper">
+          <table class="product-table" style="border: 2px solid #333; border-collapse: collapse; width: 100%;">
+            <caption>Featured Jerseys</caption>
+            <thead>
+              <tr>
+                <th scope="col">Product</th>
+                <th scope="col">Price</th>
+                <th scope="col">Rating</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Manchester United Home Jersey</td>
+                <td>$60</td>
+                <td><span role="img" aria-label="5 out of 5 stars">⭐⭐⭐⭐⭐</span></td>
+              </tr>
+              <tr>
+                <td>FC Barcelona Away Jersey</td>
+                <td>$65</td>
+                <td><span role="img" aria-label="4 out of 5 stars">⭐⭐⭐⭐</span></td>
+              </tr>
+              <tr>
+                <td>Bayern Munich Kit</td>
+                <td>$58</td>
+                <td><span role="img" aria-label="5 out of 5 stars">⭐⭐⭐⭐⭐</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p style="margin-top: 0.75rem;">
+          <a href="https://jerseystore.co.ke/product-category/wps_wgm_giftcard/footballkits/premier-league/" target="_blank" rel="noopener noreferrer">
+            Visit our Online Shop
+          </a>
+        </p>
+
+        <div class="product-gallery">
+          <figure>
+            <img
+              src="https://images.pexels.com/photos/18256095/pexels-photo-18256095.jpeg"
+              alt="Complete soccer kit laid out on a bench"
+              width="500"
+              height="333"
+            />
+            <figcaption>Soccer kit</figcaption>
+          </figure>
+
+        </div>
+      </article>
+
+      <!-- ASIDE -->
+      <aside class="aside-card" aria-labelledby="why-us-title">
+        <h3 id="why-us-title">Why Choose Us?</h3>
+        <ul>
+          <li>Trusted by local and international teams</li>
+          <li>Fast delivery and easy returns</li>
+          <li>Exclusive discounts for bulk orders</li>
+        </ul>
+      </aside>
+
+      <!-- VIDEO -->
+      <section id="video" aria-labelledby="video-title">
+        <h2 id="video-title">Store Tour Video</h2>
+        <p>
+          Watch this short video to see our store, products, and how we serve our customers—from
+          selecting authentic kits to custom printing and packaging. Below is an HTML5 video (500&nbsp;px wide).
+          We’ve also embedded a YouTube video featuring football with music.
+        </p>
+
+        <video width="500" controls poster="https://via.placeholder.com/800x450.png?text=Smartphone+Setup+Tutorial">
+                  <iframe width="560" height="315" src="https://www.youtube.com/embed/uK2Pn0ZyFPM?si=5MtLjma1QxigegzB" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/uK2Pn0ZyFPM?si=5MtLjma1QxigegzB" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        <div style="margin-top: 12px;">
+          
+          
+        </div>
+      </section>
+    </main>
+
+\
+    <footer class="site-footer">
+      <section id="contact" class="container" aria-labelledby="contact-title">
+        <h2 id="contact-title" style="margin: 0 0 0.5rem 0;">Contact</h2>
+        <p>Contact: <a href="mailto:info@jerseystore.com">info@jerseystore.com</a></p>
+        <p>&copy; <span id="year"></span> Jersey Store</p>
+        <p><a href="#home">Back to top</a></p>
+      </section>
+    </footer>
+
+    <script>
+   
+      document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>
